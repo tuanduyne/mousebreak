@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Game Đập Chuột</title>
-  <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <title>Đập Chuột</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="info">
+        <span>Điểm: <span id="score">0</span></span> |
+        <span>Thời gian: <span id="time">0</span> giây</span>
+    </div>
+    <button onclick="startGame()">Bắt đầu</button>
+    <div class="grid">
+        <!-- 3x3 cells -->
+        <div class="cell" id="cell-0-0" onclick="hit(0,0)"></div>
+        <div class="cell" id="cell-0-1" onclick="hit(0,1)"></div>
+        <div class="cell" id="cell-0-2" onclick="hit(0,2)"></div>
+        <div class="cell" id="cell-1-0" onclick="hit(1,0)"></div>
+        <div class="cell" id="cell-1-1" onclick="hit(1,1)"></div>
+        <div class="cell" id="cell-1-2" onclick="hit(1,2)"></div>
+        <div class="cell" id="cell-2-0" onclick="hit(2,0)"></div>
+        <div class="cell" id="cell-2-1" onclick="hit(2,1)"></div>
+        <div class="cell" id="cell-2-2" onclick="hit(2,2)"></div>
+    </div>
 
-<h1>🐭 Đập Chuột</h1>
-<div class="info">
-  <span id="score">Điểm: 0</span>
-  <span id="time">Thời gian: 30s</span>
-</div>
-<div class="grid" id="grid"></div>
-
-<script src="/static/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,39 +1,38 @@
-const grid = document.getElementById("grid");
-const scoreEl = document.getElementById("score");
-const timeEl = document.getElementById("time");
+let gameInterval;
 
-for (let i = 0; i < 9; i++) {
-  const cell = document.createElement("div");
-  cell.className = "cell";
-  cell.onclick = () => hit(Math.floor(i / 3), i % 3);
-  grid.appendChild(cell);
+function startGame() {
+    fetch("/start")
+    .then(res => res.json())
+    .then(() => {
+        gameInterval = setInterval(updateState, 1000); // mỗi 1 giây
+    });
 }
 
-function renderMouse(r, c) {
-  document.querySelectorAll(".cell").forEach(e => e.textContent = "");
-  grid.children[r * 3 + c].textContent = "🐭";
+function updateState() {
+    fetch("/state")
+    .then(res => res.json())
+    .then(data => {
+        if (data.game_over) {
+            clearInterval(gameInterval);
+            alert("Game over! Điểm của bạn: " + data.score);
+        } else {
+            // Xóa mole cũ
+            document.querySelectorAll(".cell").forEach(cell => cell.classList.remove("mole"));
+            // Thêm mole mới với animation
+            let cell = document.querySelector(`#cell-${data.row}-${data.col}`);
+            cell.classList.add("mole");
+
+            // Cập nhật điểm và thời gian
+            document.getElementById("score").innerText = data.score;
+            document.getElementById("time").innerText = data.time;
+        }
+    });
 }
 
 function hit(r, c) {
-  fetch(`/hit/${r}/${c}`)
+    fetch(`/hit/${r}/${c}`)
     .then(res => res.json())
     .then(data => {
-      if (data.hit) scoreEl.textContent = "Điểm: " + data.score;
+        document.getElementById("score").innerText = data.score;
     });
 }
-
-function update() {
-  fetch("/state")
-    .then(res => res.json())
-    .then(data => {
-      if (data.game_over) {
-        alert("Hết giờ! Điểm: " + data.score);
-        return;
-      }
-      scoreEl.textContent = "Điểm: " + data.score;
-      timeEl.textContent = "Thời gian: " + data.time + "s";
-      renderMouse(data.row, data.col);
-    });
-}
-
-setInterval(update, 1500);
