@@ -4,7 +4,7 @@ function startGame() {
     fetch("/start")
     .then(res => res.json())
     .then(() => {
-        gameInterval = setInterval(updateState, 1000); // mỗi 1 giây
+        gameInterval = setInterval(updateState, 1000);
     });
 }
 
