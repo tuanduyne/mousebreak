@@ -1,0 +1,38 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f6ff;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 12px;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.cell:hover {
+  background: #dbe7ff;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-size: 18px;
+  font-weight: 700;
+}
